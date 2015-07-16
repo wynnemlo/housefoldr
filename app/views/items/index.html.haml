@@ -1,0 +1,14 @@
+%table.table
+  %thead
+    %tr
+      %td Item name
+      %td Purchase location
+      %td Purchase date
+      %td Price
+  %tbody
+    - @items.each do |item|
+      %tr
+        %td= link_to item.name, item
+        %td= item.purchase_location
+        %td= item.purchase_date
+        %td= pretty_price(item.price)

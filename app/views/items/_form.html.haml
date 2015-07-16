@@ -1,0 +1,12 @@
+= bootstrap_form_for(@item) do |f|
+  = f.text_field :name
+  = f.text_field :model
+  = f.text_field :serial
+  = f.text_field :price, label: "Purchase price"
+  = f.text_field :purchase_location
+  = f.date_select :purchase_date
+  = f.date_select :end_of_warranty
+  = f.select :method_of_payment, ["Credit Card", "Cash"]
+  = f.text_field :notes
+
+  = f.submit(@item.new_record? ? "Submit" : "Update")

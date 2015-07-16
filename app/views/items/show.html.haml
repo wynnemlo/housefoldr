@@ -1,0 +1,24 @@
+.item-container
+  %h1= @item.name
+  .pull-right
+    = link_to "[ Edit item details ]", edit_item_path(@item)
+  %dl.dl-horizontal.item-list
+    %dt Model
+    %dd= @item.model
+    %dt Serial number
+    %dd= @item.serial
+    %dt Purchase price
+    %dd= pretty_price(@item.price)
+    %dt Purchase date 
+    %dd= @item.purchase_date
+    %dt Purchase location
+    %dd= @item.purchase_location
+    %dt End of warranty
+    %dd= @item.end_of_warranty
+    %dt Method of payment
+    %dd= @item.method_of_payment
+    %dt Notes
+    %dd= @item.notes
+  .go-back
+    = link_to "Go back", items_path
+

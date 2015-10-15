@@ -8,10 +8,16 @@
 
 wynne = User.create(email: "wynnemlo@gmail.com", full_name: "Wynne Lo", password: "candy123")
 
-Fabricate(:item, user: wynne)
-Fabricate(:item, user: wynne)
-Fabricate(:item, user: wynne)
-Fabricate(:item, user: wynne)
-Fabricate(:item, user: wynne)
-Fabricate(:item, user: wynne)
+Category.create(name: "Computer")
+Category.create(name: "Gadgets")
+Category.create(name: "Appliances")
+
+Fabricate(:item, user: wynne, category_id: 1)
+Fabricate(:item, user: wynne, category_id: 1)
+Fabricate(:item, user: wynne, category_id: 2)
+Fabricate(:item, user: wynne, category_id: 2)
+Fabricate(:item, user: wynne, category_id: 3)
+Fabricate(:item, user: wynne, category_id: 3)
+
+
 

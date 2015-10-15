@@ -10,8 +10,8 @@ describe ItemsController do
     before { set_current_user }
 
     it "sets the @items variable" do
-      item1 = Fabricate(:item)
-      item2 = Fabricate(:item)
+      item1 = Fabricate(:item, user: current_user)
+      item2 = Fabricate(:item, user: current_user)
       get :index
       expect(assigns(:items)).to match_array([item1, item2])
     end
@@ -117,11 +117,12 @@ describe ItemsController do
   describe "PATCH update" do
     context "unauthenticated users" do
       it_behaves_like "requires sign in" do
-        let(:action) { put :update, item: Fabricate.attributes_for(:item) }
+        let(:action) { patch :update, id: 1, item: Fabricate.attributes_for(:item, name: "New name") }
       end
 
       it "does not update the item for unauthenticated users" do
         item = Fabricate(:item)
+        clear_current_user
         patch :update, id: item.id , item: Fabricate.attributes_for(:item, name: "New name")
         expect(Item.first.name).to eq(item.name)
       end
@@ -131,9 +132,52 @@ describe ItemsController do
       before { set_current_user }
 
       it "updates the item" do
+        item = Fabricate(:item)
+        patch :update, id: item.id, item: Fabricate.attributes_for(:item, name: "New name")
+        expect(Item.first.name).to eq("New name")
       end
 
       it "redirects to the item's show page" do
+        item = Fabricate(:item)
+        patch :update, id: item.id, item: Fabricate.attributes_for(:item, name: "New name")
+        expect(response).to redirect_to item_path(item)
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    context "unauthenticated users" do
+
+      it_behaves_like "requires sign in" do
+        let(:action) { delete :destroy, id: 1}
+      end
+
+      it "doesn't delete the item" do
+        item = Fabricate(:item)
+        delete :destroy, id: item.id
+        expect(Item.count).to eq(1)
+      end
+    end
+
+    context "authenticated users" do
+      before { set_current_user }
+
+      it "deletes the item if it belongs to the current user" do
+        item = Fabricate(:item, user: current_user)
+        delete :destroy, id: item.id
+        expect(Item.count).to eq(0)
+      end
+
+      it "doesn't delete the item if it doesn't belong to the current user" do
+        item = Fabricate(:item, user: Fabricate(:user))
+        delete :destroy, id: item.id
+        expect(Item.count).to eq(1)
+      end
+
+      it "redirects to the items index page" do
+        item = Fabricate(:item, user: Fabricate(:user))
+        delete :destroy, id: item.id
+        expect(response).to redirect_to items_path
       end
     end
   end

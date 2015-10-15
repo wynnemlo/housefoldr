@@ -1,5 +1,8 @@
+$break-small: 320px;
+$break-large: 1200px;
+
 .jumbotron {
-  height: 300px;
+  height: 350px;
 }
 .tp {
   min-height: 300px;
@@ -19,9 +22,15 @@
 }
 
 footer {
+  text-align: center;
+  padding-top: 80px;
   padding-bottom: 20px;
 }
 
 thead {
   font-weight: 500;
+}
+
+#search {
+  padding-bottom: 30px;
 }

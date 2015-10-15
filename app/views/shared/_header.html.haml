@@ -1,24 +1,21 @@
 %nav.navbar.navbar-inverse
   .container
     .navbar-header
-      %button.navbar-toggle.collapsed{type: "button", aria: {expanded: "false", controls: "navbar"}, data: {toggle: "collapse", target: "#navbar"}, }
-        %span.sr-only
-          Toggle navigation
+      %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
       = link_to "HouseFoldr", root_path, class: "navbar-brand"
-    %navbar.collapse.navbar-collapse
+    #navbar.collapse.navbar-collapse
       %ul.nav.navbar-nav
         %li.active
-          =link_to "Home", root_path
+          = link_to "Home", root_path
         - if user_signed_in?
           %li
             = link_to "+ New Item", new_item_path
-        %li
-          %a{href: "#contact"}Contact
-      %ul.nav.navbar-nav.pull-right
-        - if user_signed_in?
+          %li
+            = link_to "+ New Category", new_category_path
           %li
             = link_to "Log out", log_out_path
         - else

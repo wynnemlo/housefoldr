@@ -3,7 +3,13 @@ Rails.application.routes.draw do
 
   get '/home', to: 'items#index'
 
-  resources :items
+  resources :items do
+    collection do
+      get 'search', to: 'items#search'
+    end
+  end
+
+  resources :categories, only: [:new, :create, :show]
 
   resources :users, only: [:create]
   get 'register', to: 'users#new'

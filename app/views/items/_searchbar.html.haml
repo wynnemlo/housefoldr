@@ -1,0 +1,7 @@
+.col-md-4.pull-right
+  = form_tag('/items/search', method: 'get') do
+    .form-group
+      #search.input-group
+        = text_field_tag(:q, nil, class: 'form-control', placeholder: 'Item name')
+        %span.input-group-btn
+          = submit_tag("Search", class: 'btn btn-default')
